@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VT Corte e Limpezas Gerais</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #4a9e2f;
+      --green-dark: #3d8a25;
+      --bg: #0a0f09;
+      --surface: #0e1a0c;
+      --surface2: #152010;
+      --border: #1e2e1a;
+      --border2: #2e4a28;
+      --text: #e8f0e6;
+      --text-muted: #7a9e72;
+      --text-dim: #d4e8ce;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HERO IMAGE */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      overflow: hidden;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      display: block;
+    }
+    .hero-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,15,9,0.0) 0%,
+        rgba(10,15,9,0.3) 60%,
+        rgba(10,15,9,1) 100%
+      );
+    }
+
+    .dots { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+    .dot.sm { width: 4px; height: 4px; background: var(--border2); }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(30px, 7vw, 50px);
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+    h1 span { color: #6ecc47; }
+
+    .tagline {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-weight: 300;
+    }
+
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1.1rem; }
+    .badge {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border);
+      color: var(--green);
+      background: var(--surface);
+    }
+
+    /* ROUNDED CARD LAYER */
+    .content-card {
+      position: relative;
+      z-index: 2;
+      background: #111a0f;
+      border-radius: 24px 24px 0 0;
+      border: 0.5px solid var(--border);
+      border-bottom: none;
+      margin-top: -28px;
+      padding: 2rem 1.75rem 4rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-block {
+      padding: 2rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .section-block:first-child { padding-top: 0.5rem; }
+    .section-block:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+    }
+
+    /* SERVICES */
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      border: 0.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .svc {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      background: var(--surface);
+      transition: background 0.2s;
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .svc:last-child { border-bottom: none; }
+    .svc:hover { background: var(--surface2); }
+    .svc-left { display: flex; align-items: center; gap: 14px; }
+    .svc-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .svc-name { font-size: 14px; color: var(--text-dim); }
+    .svc-arrow { color: var(--border2); font-size: 16px; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 480px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem;
+    }
+    .about-card .icon { font-size: 20px; margin-bottom: 8px; }
+    .about-card h3 { font-size: 13px; font-weight: 500; color: var(--text-dim); margin-bottom: 4px; }
+    .about-card p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+    /* CONTACT */
+    .contact-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .contact-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 18px;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-icon {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: var(--surface2); border: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .contact-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
+    .contact-val { font-size: 14px; color: var(--text-dim); }
+
+    /* CTA */
+    .cta {
+      display: block;
+      width: 100%;
+      background: var(--green);
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      color: #0a0f09;
+      margin-top: 1.5rem;
+    }
+    .cta:hover { background: var(--green-dark); }
+    .cta:active { transform: scale(0.98); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--border2);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 2rem 0 2.5rem;
+      background: var(--bg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- IMAGEM COM FADE -->
+  <div class="hero">
+    <img src="jardim_minimalista_site.png" alt="Jardim bem cuidado" />
+    <div class="hero-fade"></div>
+  </div>
+
+  <!-- CAIXA COM CANTOS ARREDONDADOS ACIMA DO FUNDO -->
+  <div class="content-card">
+
+    <div class="section-block">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot sm"></div>
+      </div>
+      <h1>VT <span>Corte e</span><br>Limpezas Gerais</h1>
+      <div class="tagline">Cuidamos do seu espaço</div>
+      <div class="badges" style="margin-bottom:1.25rem;">
+        <span class="badge">Qualidade</span>
+        <span class="badge">Confiança</span>
+        <span class="badge">Pontualidade</span>
+      </div>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.8;max-width:440px;">
+        Serviços profissionais de jardinagem e limpeza para residências, empresas e condomínios. Qualquer tipo de serviço, só me chamar.
+      </p>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Serviços</div>
+      <div class="service-list">
+        <a class="svc" href="https://wa.me/5399935111?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20corte%20de%20grama." target="_blank">
+          <div class="svc-left">
+            <div class="svc-icon">🌿</div>
+            <div class="svc-name">Corte de grama</div>
+          </div>
+          <div class="svc-arrow">→</div>
+        </a>
+        <a class="svc" href="https://wa.me/5399935111?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20poda%20de%20árvores%20e%20cercas%20vivas." target="_blank">
+          <div class="svc-left">
+            <div class="svc-icon">🌳</div>
+            <div class="svc-name">Poda de árvores e cercas vivas</div>
+          </div>
+          <div class="svc-arrow">→</div>
+        </a>
+        <a class="svc" href="https://wa.me/5399935111?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20limpeza%20de%20terrenos%20e%20áreas%20externas." target="_blank">
+          <div class="svc-left">
+            <div class="svc-icon">🧹</div>
+            <div class="svc-name">Limpeza de terrenos e áreas externas</div>
+          </div>
+          <div class="svc-arrow">→</div>
+        </a>
+        <a class="svc" href="https://wa.me/5399935111?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20remoção%20de%20resíduos." target="_blank">
+          <div class="svc-left">
+            <div class="svc-icon">♻️</div>
+            <div class="svc-name">Remoção de resíduos</div>
+          </div>
+          <div class="svc-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Por que nos escolher</div>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="icon">🏡</div>
+          <h3>Atendimento completo</h3>
+          <p>Residências, empresas e condomínios — onde você precisar.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">✅</div>
+          <h3>Compromisso com qualidade</h3>
+          <p>Serviço cuidadoso e resultado garantido em cada visita.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">🤝</div>
+          <h3>Equipe confiável</h3>
+          <p>Profissionais experientes e comprometidos com o seu espaço.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">⚡</div>
+          <h3>Agendamento rápido</h3>
+          <p>Fale pelo WhatsApp e agende no horário mais conveniente.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Contato</div>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Área de atendimento</div>
+            <div class="contact-val">Residências, empresas e condomínios</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-val">53 99935-1111</div>
+          </div>
+        </div>
+      </div>
+      <a class="cta" href="https://wa.me/5399935111" target="_blank">
+        Falar no WhatsApp →
+      </a>
+    </div>
+
+  </div>
+
+  <footer>VT Corte e Limpezas Gerais &middot; 2026</footer>
+
+</body>
+</html>
